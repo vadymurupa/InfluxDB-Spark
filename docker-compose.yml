@@ -1,0 +1,26 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=db1
+      - INFLUXDB_USER=admin
+      - INFLUXDB_USER_PASSWORD=admin
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+
+  pyspark:
+    image: jupyter/pyspark-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - pyspark_data:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+
+volumes:
+  influxdb_data:
+  pyspark_data:
+
